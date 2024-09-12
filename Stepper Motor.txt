@@ -2,44 +2,54 @@ from machine import Pin
 import utime
 utime.sleep(0.1) # Wait for USB to become ready
 
-steps = 0
+def move_motor_down():
+  stepper_pins[0].value(0)
+  stepper_pins[1].value(1)
+  flash_lights()
+  stepper_pins[1].value(0)
+
+def move_motor_up():
+  stepper_pins[0].value(1)
+  stepper_pins[1].value(1)
+  flash_lights()
+  stepper_pins[1].value(0)
+
 def lights_off():
-  pins[2].value(0)
-  pins[3].value(0)
+  light_pins[0].value(0)
+  light_pins[1].value(0)
 
 def flash_lights():
-  pins[2].value(1)
-  pins[3].value(0)
+  light_pins[0].value(1)
+  light_pins[1].value(0)
   utime.sleep(0.2)
-  pins[2].value(0)
-  pins[3].value(1)
+  light_pins[0].value(0)
+  light_pins[1].value(1)
   utime.sleep(0.2)
 
 def move_motor():
-  global steps
-  for i in range (0,50):
-    pins[0].value(0)
-    pins[1].value(1)
-    flash_lights()
-    pins[1].value(0)
+  stepper_pins[1].value(1)
+  for x in range (0,50):
+    move_motor_down()
   lights_off()
+  print("Waiting 60 seconds, but really it's 2 seconds")
   utime.sleep(2)
-  for i in range (0,50):
-    pins[0].value(1)
-    pins[1].value(1)
-    flash_lights()
-    pins[1].value(0)
+  for x in range (0,50):
+    move_motor_up()
   lights_off()
   utime.sleep(2)
   
 # Define pins
-pins = [
+stepper_pins = [
   Pin(2, Pin.OUT),
   Pin(3, Pin.OUT),
+]
+
+light_pins = [
   Pin(27, Pin.OUT),
   Pin(26, Pin.OUT),
-  Pin(6, Pin,IN)
 ]
+
+BUTTON = Pin(6, Pin.IN, Pin.PULL_DOWN)
 
 # Create a sequence
 step_sequence = [
@@ -49,4 +59,8 @@ step_sequence = [
 
 # Use loops to set pins in sequence
 while True:
-  move_motor()
+  print("Pending Button Press", BUTTON.value())
+  if BUTTON.value() == 1:
+    print("pressed")
+    move_motor()
+  utime.sleep(0.1)
