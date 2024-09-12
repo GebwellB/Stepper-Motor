@@ -22,7 +22,7 @@ dest_ip = '172.20.24.22' # Replace with your IP
 dest_port = 12345  # # Replace with your UDP port
 
 # Send UDP packet
-udp_sock.sendto(message, (dest_ip, dest_port))
+# udp_sock.sendto(message, (dest_ip, dest_port))
 
 # Changes motor direction to anti-clockwise
 def move_motor_down():
@@ -52,8 +52,8 @@ def flash_lights():
   light_pins[1].value(1)
   utime.sleep(0.2)
 
-def send_message(message)
-  udp_sock.sendto(message, (dest_ip, dest_port))
+# def send_message(message)
+  # udp_sock.sendto(message, (dest_ip, dest_port))
 
 # Controls motor movement
 def move_motor():
@@ -64,16 +64,15 @@ def move_motor():
   lights_off()
   print("Waiting 60 seconds, but really it's 2 seconds")
   gate_closed = True
-  send_message("Gate closed")
+  # send_message("Gate closed")
   print(gate_closed)
   utime.sleep(2)
   gate_closed = False
-  send_message("Gate opened")
+  # send_message("Gate opened")
   print(gate_closed)
   for x in range (0,50):
     move_motor_up()
   lights_off()
-  utime.sleep(2)
   
 # Define stepper pins
 stepper_pins = [
@@ -89,12 +88,6 @@ light_pins = [
 
 # Button
 BUTTON = Pin(6, Pin.IN, Pin.PULL_DOWN)
-
-# Create a sequence
-step_sequence = [
-  [1,0],
-  [0,1],
-]
 
 # Use loops to set pins in sequence
 while True:
