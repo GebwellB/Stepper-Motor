@@ -11,6 +11,7 @@ wifi.active(True)
 wifi.connect('Wokwi-GUEST', '') 
 
 # Print WiFi status to console
+utime.sleep(6)
 print('Connected to Wi-Fi:', wifi.ifconfig())
 utime.sleep(1)
 
@@ -21,20 +22,6 @@ udp_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 dest_ip = '172.20.24.22' # Replace with your IP
 dest_port = 12345  # # Replace with your UDP port
 
-# Changes motor direction to anti-clockwise
-def move_motor_down():
-  stepper_pins[0].value(0)
-  stepper_pins[1].value(1)
-  flash_lights()
-  stepper_pins[1].value(0)
-
-# Changes motor direction to clockwise
-def move_motor_up():
-  stepper_pins[0].value(1)
-  stepper_pins[1].value(1)
-  flash_lights()
-  stepper_pins[1].value(0)
-
 # Turns all lights off
 def lights_off():
   light_pins[0].value(0)
@@ -44,32 +31,22 @@ def lights_off():
 def flash_lights():
   light_pins[0].value(1)
   light_pins[1].value(0)
-  utime.sleep(0.2)
+  utime.sleep(0.15)
   light_pins[0].value(0)
   light_pins[1].value(1)
-  utime.sleep(0.2)
+  utime.sleep(0.15)
 
 # Send UDP packet
 def send_message(message):
   udp_sock.sendto(message, (dest_ip, dest_port))
 
 # Controls motor movement
-def move_motor():
-  gate_closed = False
-  stepper_pins[1].value(1)
+def move_motor(step_sequence):
   for x in range (0,50):
-    move_motor_down()
-  lights_off()
-  print("Waiting 60 seconds, but really it's 2 seconds")
-  gate_closed = True
-  send_message("Gate closed")
-  print(gate_closed)
-  utime.sleep(2)
-  gate_closed = False
-  send_message("Gate opened")
-  print(gate_closed)
-  for x in range (0,50):
-    move_motor_up()
+    for step in step_sequence:
+      for i in range(len(stepper_pins)):
+        stepper_pins[i].value(step[i])
+    flash_lights()
   lights_off()
   
 # Define stepper pins
@@ -87,10 +64,25 @@ light_pins = [
 # Button
 BUTTON = Pin(6, Pin.IN, Pin.PULL_DOWN)
 
+anti_clockwise = [
+  [0,0],
+  [0,1],
+]
+clockwise = [
+  [0,0],
+  [1,1],
+]
+
 # Use loops to set pins in sequence
 while True:
   print("Pending Button Press", BUTTON.value(), wifi.ifconfig())
   if BUTTON.value() == 1:
     print("pressed")
-    move_motor()
+    print("")
+    move_motor(anti_clockwise)
+    send_message("Gate closed")
+    print("Waiting 60 seconds, but really it's 2 seconds")
+    utime.sleep(2)
+    move_motor(clockwise)
+    send_message("Gate opened")
   utime.sleep(0.1)
