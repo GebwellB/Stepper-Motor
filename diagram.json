@@ -3,7 +3,7 @@
   "author": "Uri Shaked",
   "editor": "wokwi",
   "parts": [
-    { "type": "board-pi-pico-w", "id": "pico", "top": 16.05, "left": -63.6, "attrs": {} },
+    { "type": "board-pi-pico-w", "id": "pico", "top": 15.95, "left": -63.65, "attrs": {} },
     {
       "type": "wokwi-a4988",
       "id": "drv1",
@@ -20,7 +20,14 @@
       "attrs": { "display": "steps", "arrow": "orange" }
     },
     { "type": "wokwi-led", "id": "led1", "top": -61.2, "left": 32.6, "attrs": { "color": "red" } },
-    { "type": "wokwi-led", "id": "led2", "top": -61.2, "left": 71, "attrs": { "color": "red" } }
+    { "type": "wokwi-led", "id": "led2", "top": -61.2, "left": 71, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 54.2,
+      "left": -201.6,
+      "attrs": { "color": "yellow" }
+    }
   ],
   "connections": [
     [ "drv1:1B", "stepper1:B-", "black", [ "v0" ] ],
@@ -31,7 +38,13 @@
     [ "drv1:STEP", "pico:GP3", "orange", [ "v130.8", "h-203.87", "v-163.2" ] ],
     [ "drv1:DIR", "pico:GP2", "violet", [ "v140.4", "h-223.07", "v-182.4" ] ],
     [ "drv1:GND.2", "pico:GND.8", "black", [ "v0" ] ],
-    [ "pico:VBUS", "drv1:VDD", "red", [ "h0" ] ]
+    [ "pico:VBUS", "drv1:VDD", "red", [ "h0" ] ],
+    [ "pico:GND.8", "led1:C", "black", [ "h0" ] ],
+    [ "pico:GND.8", "led2:C", "black", [ "h0" ] ],
+    [ "pico:GP27", "led1:A", "green", [ "h0" ] ],
+    [ "pico:GP26", "led2:A", "green", [ "h0" ] ],
+    [ "pico:GP6", "btn1:1.l", "green", [ "h0" ] ],
+    [ "pico:GP7", "btn1:1.r", "green", [ "h0" ] ]
   ],
   "dependencies": {}
 }
