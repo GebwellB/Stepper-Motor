@@ -3,28 +3,42 @@ import utime
 utime.sleep(0.1) # Wait for USB to become ready
 
 steps = 0
+def lights_off():
+  pins[2].value(0)
+  pins[3].value(0)
+
+def flash_lights():
+  pins[2].value(1)
+  pins[3].value(0)
+  utime.sleep(0.2)
+  pins[2].value(0)
+  pins[3].value(1)
+  utime.sleep(0.2)
 
 def move_motor():
   global steps
-  while steps < 50:
+  for i in range (0,50):
     pins[0].value(0)
     pins[1].value(1)
-    utime.sleep(0.01)
+    flash_lights()
     pins[1].value(0)
-    steps += 1
+  lights_off()
   utime.sleep(2)
-  while steps > 0:
+  for i in range (0,50):
     pins[0].value(1)
     pins[1].value(1)
-    utime.sleep(0.01)
+    flash_lights()
     pins[1].value(0)
-    steps -= 1
+  lights_off()
   utime.sleep(2)
   
 # Define pins
 pins = [
   Pin(2, Pin.OUT),
   Pin(3, Pin.OUT),
+  Pin(27, Pin.OUT),
+  Pin(26, Pin.OUT),
+  Pin(6, Pin,IN)
 ]
 
 # Create a sequence
