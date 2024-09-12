@@ -17,8 +17,10 @@
       "id": "stepper1",
       "top": -120.29,
       "left": 212.08,
-      "attrs": { "display": "angle", "arrow": "orange" }
-    }
+      "attrs": { "display": "steps", "arrow": "orange" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": -61.2, "left": 32.6, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led2", "top": -61.2, "left": 71, "attrs": { "color": "red" } }
   ],
   "connections": [
     [ "drv1:1B", "stepper1:B-", "black", [ "v0" ] ],
