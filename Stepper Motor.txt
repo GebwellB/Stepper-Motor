@@ -2,22 +2,26 @@ from machine import Pin
 import utime
 utime.sleep(0.1) # Wait for USB to become ready
 
+# Changes motor direction to anti-clockwise
 def move_motor_down():
   stepper_pins[0].value(0)
   stepper_pins[1].value(1)
   flash_lights()
   stepper_pins[1].value(0)
 
+# Changes motor direction to clockwise
 def move_motor_up():
   stepper_pins[0].value(1)
   stepper_pins[1].value(1)
   flash_lights()
   stepper_pins[1].value(0)
 
+# Turns all lights off
 def lights_off():
   light_pins[0].value(0)
   light_pins[1].value(0)
 
+# Flashes lights while arm is moving
 def flash_lights():
   light_pins[0].value(1)
   light_pins[1].value(0)
@@ -26,6 +30,7 @@ def flash_lights():
   light_pins[1].value(1)
   utime.sleep(0.2)
 
+# Controls motor movement
 def move_motor():
   stepper_pins[1].value(1)
   for x in range (0,50):
@@ -38,17 +43,19 @@ def move_motor():
   lights_off()
   utime.sleep(2)
   
-# Define pins
+# Define stepper pins
 stepper_pins = [
   Pin(2, Pin.OUT),
   Pin(3, Pin.OUT),
 ]
 
+# Define light pins
 light_pins = [
   Pin(27, Pin.OUT),
   Pin(26, Pin.OUT),
 ]
 
+# Button
 BUTTON = Pin(6, Pin.IN, Pin.PULL_DOWN)
 
 # Create a sequence
