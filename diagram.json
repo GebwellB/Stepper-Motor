@@ -30,10 +30,10 @@
     }
   ],
   "connections": [
-    [ "drv1:1B", "stepper1:B-", "black", [ "v0" ] ],
-    [ "drv1:1A", "stepper1:B+", "green", [ "v0" ] ],
-    [ "stepper1:A+", "drv1:2A", "blue", [ "v0" ] ],
-    [ "stepper1:A-", "drv1:2B", "red", [ "v0" ] ],
+    [ "drv1:1B", "stepper1:B-", "black", [ "v-19.35", "h201.69" ] ],
+    [ "drv1:1A", "stepper1:B+", "green", [ "v-28.95", "h201.68" ] ],
+    [ "stepper1:A+", "drv1:2A", "blue", [ "v86.4", "h-201.68" ] ],
+    [ "stepper1:A-", "drv1:2B", "red", [ "v76.8", "h-201.68" ] ],
     [ "drv1:SLEEP", "drv1:RESET", "green", [ "v15.92", "h-9.9" ] ],
     [ "drv1:STEP", "pico:GP3", "orange", [ "v19.2", "h-203.87", "v-240" ] ],
     [ "drv1:DIR", "pico:GP2", "violet", [ "v28.8", "h-223.07", "v-259.2" ] ],
