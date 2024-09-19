@@ -74,8 +74,8 @@ clockwise = [
 ]
 
 # Use loops to set pins in sequence
+print("Ready!")
 while True:
-  print("Pending Button Press", BUTTON.value(), wifi.ifconfig())
   if BUTTON.value() == 1:
     print("pressed")
     print("")
