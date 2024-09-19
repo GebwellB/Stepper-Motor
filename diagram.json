@@ -16,7 +16,7 @@
       "type": "wokwi-stepper-motor",
       "id": "stepper1",
       "top": -120.29,
-      "left": 212.08,
+      "left": 432.88,
       "attrs": { "display": "steps", "arrow": "orange" }
     },
     { "type": "wokwi-led", "id": "led1", "top": -61.2, "left": 32.6, "attrs": { "color": "red" } },
@@ -27,6 +27,13 @@
       "top": 54.2,
       "left": -201.6,
       "attrs": { "color": "yellow" }
+    },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "stepper2",
+      "top": -120.29,
+      "left": 212.08,
+      "attrs": { "display": "steps", "arrow": "orange" }
     }
   ],
   "connections": [
@@ -44,7 +51,11 @@
     [ "pico:GP27", "led1:A", "green", [ "h0" ] ],
     [ "pico:GP26", "led2:A", "green", [ "h0" ] ],
     [ "pico:GP6", "btn1:2.r", "green", [ "h0" ] ],
-    [ "pico:3V3", "btn1:1.l", "green", [ "h19.51", "v-57.6", "h-230.4" ] ]
+    [ "pico:3V3", "btn1:1.l", "green", [ "h19.51", "v-57.6", "h-230.4" ] ],
+    [ "drv1:2A", "stepper2:A+", "blue", [ "v-105.75", "h201.68" ] ],
+    [ "drv1:1A", "stepper2:B+", "green", [ "v-96.15", "h201.68" ] ],
+    [ "drv1:1B", "stepper2:A-", "black", [ "v-115.35", "h172.88" ] ],
+    [ "drv1:2B", "stepper2:B-", "red", [ "v-86.55", "h230.48" ] ]
   ],
   "dependencies": {}
 }
